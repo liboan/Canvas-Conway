@@ -1,1 +1,101 @@
-first page
+<html>
+	<style type = "text/css">
+		#about {
+			font-family: sans-serif; 
+			width: 1000px;
+
+		}
+		#canvaswrapper {
+			width: 1004px;
+			height: 504px;
+			float: left;
+		}
+		#sidepanel {
+			width: 245px;
+			text-align: center;
+			height: 300px;
+			float: right;
+			margin: 40px;
+			font-family: sans-serif;
+			border: 2px solid;
+			-webkit-border-radius: 10px;
+			-moz-border-radius: 10px;
+			
+		}
+		#cellinfo {
+			width: 200px;
+			height: 24px;
+			font-size: 20px;
+			display: inline-block;
+		}
+		#geneinfo {
+			width: 200px;
+			height: 40px;
+			font-size: 20px;
+			display: inline-block;
+		}
+		#totalpop {
+			font-size: 20px;
+			font-weight: bold;
+		}
+		#genotypeTable {
+			font-size: 18px;
+			text-align: center;
+			display: inline-block;
+			border: 2px solid;
+			border-collapse: collapse;
+
+		}
+		th, td {
+			border: 2px solid;
+			padding: 4px;
+
+		}
+		#buttonpanel {
+			vertical-align:  left;
+			width: 400px;
+			height: 80px;
+		}
+		input[type=button] {
+			width: 120px;
+			height: 40px;
+			border: 2px solid;
+			-webkit-border-radius: 10px;
+			-moz-border-radius: 10px;
+			font-size: 16px;
+		}
+
+	</style>
+	<body>
+		<div id = "about">
+			<h2>Tweaked Conway's Game of Life</h2>
+			<p>Conway's game of life with the addition of "genes". Currently the cells adhere to Conway's rules (B3/S23) but each cell also has a color, which is inherited according to Mendelian genetics from two "parents" upon birth.</p>
+		</div>
+		<div id = "canvaswrapper"><canvas id = "myCanvas" width = "1000" height = "500" style = "border:1px solid #000000">yo, ur browser is too old for canvas</canvas></div>
+		<br>
+		<div id = "sidepanel">
+			<div id = "cellinfo">Mouse over a cell</div>
+			<div id = "geneinfo">to see its genes</div>
+			<div id = "popinfo">
+				<p id = "totalpop">total pop</p>
+				<table id = "genotypeTable">
+					<tbody>
+						<div style = "padding: 4px; border-top: 2px solid; border-left: 2px solid; border-right: 2px solid; font-size: 16px; width: 164px; display: inline-block">Cell Pop divided by genotype</div>
+						<tr>
+							<th>    </th>
+							<th>0 0</th>
+							<th>1 0</th>
+							<th>1 1</th>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<br>
+		<div id = "buttonpanel">
+			<input style = "background-color: yellow" type = "button" onclick = "pause()" value = "Click to pause" id = "playpause">
+		</div>
+		<script src = "jquery/jquery-2.1.1.js"></script>
+		<script src = "conway.js"></script>
+	</body>
+</html>
