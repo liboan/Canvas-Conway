@@ -5,10 +5,15 @@ var playing;
 var flipArray = []; //array of cell coords that will be flipped, will grow and shrink
 var genotypeCount = [[0,0,0]]; //counts # of members in each genotype, 00 is [i][0], 01 is [i][1], 11 is [i][2]
 
+var rules = {
+	birth: [3,3],
+	survive: [2,3]
+};
+
 var CONST_UNIT = 10;
 var CONST_WIDTH = myCanvas.width/CONST_UNIT;
 var CONST_HEIGHT = myCanvas.height/CONST_UNIT;
-var CONST_PROB = 0.3;
+var CONST_PROB = 0.1;
 var CONST_TRAIT_LIST = ["color"];
 
 
@@ -33,7 +38,7 @@ $(document).ready(function() {
 	}
 });
 
-randomFill();
+randomFill(CONST_PROB);
 toggle();
 
 
@@ -100,9 +105,37 @@ $(document).ready(function() {
 			$("#cellinfo").css("background-color","white");
 			$("#geneinfo").text("to see its genes");
 		}
+		
+		$("#canvaswrapper").mousedown(function (e) {
+			console.log("clicked at " + mouseX + ", " + mouseY);
+		});
 
 	});
+
+
+
 });
+
+
+//rule change function
+function ruleChange() {
+	var newRule = document.getElementById("rules").value;
+	switch (newRule) {
+		case "0":
+			rules.birth = [3,3];
+			rules.survive = [2,3];
+			break;
+		case "1":
+			rules.birth = [3,3];
+			rules.survive = [2,4];
+			break;
+		case "2":
+			rules.birth = [2,3];
+			rules.survive = [2,3];
+			break;
+	}
+	randomFill(CONST_PROB);
+}
 
 //Function to update table
 function updateTable() {
@@ -160,7 +193,7 @@ function randomFill(probability) {
 	  for (j = 0; j < world[i].length; j++) {
 	    var random = Math.random();
 	    //console.log("RANDOM = " + random);
-	    if (random < CONST_PROB) {
+	    if (random < probability) {
 	    	world[i][j].state = 1;
 	    	world[i][j].generateGene();
 	    }
@@ -235,6 +268,20 @@ function Cell(state, x, y) {
 		this.state = Math.abs(this.state-1);
 	}
 
+	//set survival thresholds based on traits
+	this.setSurvive = function() {
+		//[1][1] is [1,4], rest [2,3] as normal
+		if (this.traits[0][0] == 1 && this.traits[0][1] == 1) {
+			this.survive = rules.survive;
+			this.birth = rules.birth;
+		}
+		else {
+			this.survive = [2,3];
+			this.birth = [3,3];
+		}
+
+	}
+
 	//gets color based on genotype
 	this.getColor = function() {
 		if (this.state == 0) {
@@ -256,6 +303,7 @@ function Cell(state, x, y) {
 			this.traits[i][0] = Math.round(Math.random());
 			this.traits[i][1] = Math.round(Math.random());
 		}
+		this.setSurvive();
 	}
 
 	this.inheritGene = function() {
@@ -275,6 +323,8 @@ function Cell(state, x, y) {
 			this.traits[i][1] = parents[parent2].traits[i][randomNum(1)]; 
 		}
 		//console.log(this.traits[0][0] + " " + this.traits[0][1]);
+
+		this.setSurvive();
 
 	}
 

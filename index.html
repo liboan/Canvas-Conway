@@ -14,7 +14,7 @@
 			width: 245px;
 			text-align: center;
 			height: 300px;
-			float: right;
+			float: left;
 			margin: 40px;
 			font-family: sans-serif;
 			border: 2px solid;
@@ -23,16 +23,23 @@
 			
 		}
 		#cellinfo {
+			margin-top: 10px;
 			width: 200px;
-			height: 24px;
+			height: 30px;
 			font-size: 20px;
 			display: inline-block;
+			border-top: 2px solid;
+			border-left: 2px solid;
+			border-right: 2px solid;
 		}
 		#geneinfo {
 			width: 200px;
 			height: 40px;
 			font-size: 20px;
 			display: inline-block;
+			border-left: 2px solid;
+			border-right: 2px solid;
+			border-bottom: 2px solid;
 		}
 		#totalpop {
 			font-size: 20px;
@@ -49,6 +56,7 @@
 		th, td {
 			border: 2px solid;
 			padding: 4px;
+			width: 40px;
 
 		}
 		#buttonpanel {
@@ -69,7 +77,15 @@
 	<body>
 		<div id = "about">
 			<h2>Tweaked Conway's Game of Life</h2>
-			<p>Conway's game of life with the addition of "genes". Currently the cells adhere to Conway's rules (B3/S23) but each cell also has a color, which is inherited according to Mendelian genetics from two "parents" upon birth.</p>
+			<p>Conway's game of life with the addition of "genes". Each cell has a color, which is inherited according to Mendelian genetics from two "parents" upon birth. </p>
+			<br>
+			<select id = "rules" onchange="ruleChange()">
+				<option value="0">B3/S23 (normal)
+				<option value="1">B3/S24
+				<option value="2">B23/S23</option>
+			</select>
+			<br>
+			<p>This menu lets you set the survival and birth rules of the green cells (genotype 1 1). Watch and see how different rules change the nature of the game!</p>
 		</div>
 		<div id = "canvaswrapper"><canvas id = "myCanvas" width = "1000" height = "500" style = "border:1px solid #000000">yo, ur browser is too old for canvas</canvas></div>
 		<br>
@@ -80,7 +96,7 @@
 				<p id = "totalpop">total pop</p>
 				<table id = "genotypeTable">
 					<tbody>
-						<div style = "padding: 4px; border-top: 2px solid; border-left: 2px solid; border-right: 2px solid; font-size: 16px; width: 164px; display: inline-block">Cell Pop divided by genotype</div>
+						<div style = "padding: 4px; border-top: 2px solid; border-left: 2px solid; border-right: 2px solid; font-size: 16px; width: 194px; display: inline-block">Cell Pop divided by genotype</div>
 						<tr>
 							<th>    </th>
 							<th>0 0</th>
