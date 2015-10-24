@@ -271,7 +271,7 @@ function Cell(state, x, y) {
 	//set survival thresholds based on traits
 	this.setSurvive = function() {
 		//[1][1] is [1,4], rest [2,3] as normal
-		if (this.traits[0][0] == 1 && this.traits[0][1] == 1) {
+		if (this.traits[0][0] == 0 && this.traits[0][1] == 0) {
 			this.survive = rules.survive;
 			this.birth = rules.birth;
 		}
